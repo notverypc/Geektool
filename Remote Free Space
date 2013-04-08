@@ -1,0 +1,5 @@
+#Remote Disk Space:
+
+ssh <username>@<IP Address> 'df -H -l'
+
+#Will need to set-up password-less ssh
