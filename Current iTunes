@@ -1,0 +1,52 @@
+tell application "System Events"
+  if exists process "iTunes" then
+		tell application "iTunes"
+			-- This script extracts information about the track currently running in iTunes, and then
+			-- formats it for one-line display (e.g., using GeekTool).
+			-- See http://www.macosxhints.com/article.php?story=2004070301135736 for a
+			-- detailed description of a similar script that gave me the idea for this one.
+			
+			-- this spacer determines how many spaces are between some of the items in the display:
+			set spacer to "  -   "
+			
+			-- get some simple information and add spaces and punctuation:
+			set myName to name of current track & " - "
+			set myArtist to artist of current track
+			set myGenre to spacer & "(" & genre of current track & ")"
+			set myGrouping to spacer & "{" & grouping of current track & "}"
+			
+			-- if the track is in an album, then put a dash before the album name (to separate
+			-- it from the information that will be printed before the album):
+			set myAlbum to album of current track
+			if myAlbum is not "" then
+				set myAlbum to " - " & myAlbum
+			end if
+			
+			-- get the rating, or a message if there is no rating:
+			set myRating to round ((rating of current track) / 20)
+			if myRating is 1 then
+				set myRating to "*"
+			else if myRating is 2 then
+				set myRating to "**"
+			else if myRating is 3 then
+				set myRating to "***"
+			else if myRating is 4 then
+				set myRating to "****"
+			else if myRating is 5 then
+				set myRating to "*****"
+			else
+				set myRating to "NO RATING"
+			end if
+			set myRating to spacer & myRating
+			
+			-- get the current position of the track and calculate how far through
+			-- the track we are, as a percentage:
+			set myPosition to player position
+			set myDuration to duration of current track
+			set myPercent to spacer & (round (myPosition / myDuration * 100)) & "%"
+			
+			-- this final line determines which pieces of information are displayed:
+			set output to myName & myArtist & myAlbum --& myPercent & myRating & myGrouping
+		end tell
+	end if
+end tell
