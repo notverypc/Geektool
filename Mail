@@ -1,0 +1,25 @@
+tell application "System Events"
+	if exists process "Mail" then
+		set boxesWithUnreads to ""
+		tell application "Mail"
+			set allAccounts to every account
+			
+			repeat with currentAccount in allAccounts
+				set allMailboxes to every mailbox of currentAccount
+				
+				repeat with currentMailbox in allMailboxes
+					if the unread count of currentMailbox is not equal to 0 then
+						
+						set boxesWithUnreads to (boxesWithUnreads & the name of currentMailbox & ", ")
+						
+					end if
+				end repeat
+			end repeat
+			if boxesWithUnreads is equal to "" then
+				set output to ""
+			else
+				set output to "You've Got Mail: " & boxesWithUnreads
+			end if
+		end tell
+	end if
+end tell
