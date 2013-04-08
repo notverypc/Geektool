@@ -1,0 +1,5 @@
+# Date and Time (GMT):
+defaults read /System/Library/CoreServices/CoreTypes.bundle/Contents/Resources/XProtect.meta LastModification
+
+# Version Number:
+defaults read /System/Library/CoreServices/CoreTypes.bundle/Contents/Resources/XProtect.meta Version
