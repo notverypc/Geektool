@@ -1,0 +1,18 @@
+#!/bin/sh
+
+# BG Info Script
+
+# Get Username
+echo "User Name: $USER"
+
+# Get Computer Name
+echo "Computer Name: `scutil --get ComputerName`"
+
+# Get Current IP Address
+echo "IP Address: `ifconfig en0 | grep netmask | grep -v 127.0.0.1 | awk {'print $2'}`"
+
+# Get Operating System
+echo "OS X Version: `sw_vers -productVersion`"
+
+# Get Processors
+echo "Hardware: `system_profiler SPHardwareDataType SPSoftwareDataType | perl -e '@info= <>; $info= join("", @info);if($info=~m@[\r\n]+\s*Processor Speed:\s*([^\r\n]+)[\r\n]+@) {print "$1 ";}if($info=~m@[\r\n]+\s*Processor Name:\s*([^\r\n]+)[\r\n]+@) {print "$1\n";}'`"
